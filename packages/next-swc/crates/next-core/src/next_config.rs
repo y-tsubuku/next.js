@@ -55,6 +55,8 @@ pub struct NextConfig {
     pub rewrites: Rewrites,
     pub transpile_packages: Option<Vec<String>>,
 
+    pub output: Option<OutputType>,
+
     // unsupported
     cross_origin: Option<String>,
     compiler: Option<CompilerConfig>,
@@ -78,7 +80,6 @@ pub struct NextConfig {
     i18n: Option<I18NConfig>,
     on_demand_entries: OnDemandEntriesConfig,
     optimize_fonts: bool,
-    output: Option<OutputType>,
     output_file_tracing: bool,
     powered_by_header: bool,
     production_browser_source_maps: bool,
@@ -158,8 +159,9 @@ struct I18NConfig {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, TraceRawVcs)]
 #[serde(rename_all = "kebab-case")]
-enum OutputType {
+pub enum OutputType {
     Standalone,
+    Export,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, TraceRawVcs)]
