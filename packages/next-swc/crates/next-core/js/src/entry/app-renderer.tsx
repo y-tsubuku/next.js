@@ -203,8 +203,9 @@ async function runOperation(renderData: RenderData) {
     }
   }
   const availableModules = new Set()
-  const toPath = (chunk) => (typeof chunk === 'string' ? chunk : chunk.path)
-  const filterAvailable = (chunk) => {
+  const toPath = (chunk: string | ChunkData) =>
+    typeof chunk === 'string' ? chunk : chunk.path
+  const filterAvailable = (chunk: string | ChunkData) => {
     if (typeof chunk === 'string') {
       return true
     } else {
