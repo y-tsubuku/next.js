@@ -244,8 +244,6 @@ async function runOperation(renderData: RenderData) {
   }
   const manifest: ClientReferenceManifest = new Proxy({} as any, proxyMethods())
 
-  console.log(BOOTSTRAP)
-
   const serverCSSManifest: ClientCSSReferenceManifest = {
     cssImports: new Proxy({} as any, cssImportProxyMethods),
     cssModules: {},
