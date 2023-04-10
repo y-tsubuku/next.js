@@ -3,7 +3,10 @@ use std::collections::HashMap;
 
 use anyhow::Result;
 use turbo_binding::{
-    turbo::{tasks_env::ProcessEnvVc, tasks_fs::FileSystemPathVc},
+    turbo::{
+        tasks_env::ProcessEnvVc,
+        tasks_fs::{FileSystemKind, FileSystemPathVc},
+    },
     turbopack::{
         core::{
             chunk::ChunkingContextVc,
@@ -23,6 +26,7 @@ use turbo_binding::{
         env::ProcessEnvAssetVc,
         node::execution_context::ExecutionContextVc,
         turbopack::{
+            condition::ContextCondition,
             module_options::{
                 module_options_context::{ModuleOptionsContext, ModuleOptionsContextVc},
                 PostCssTransformOptions, WebpackLoadersOptions,
@@ -200,10 +204,16 @@ pub async fn get_client_module_options_context(
         enable_webpack_loaders,
         enable_typescript_transform: Some(tsconfig),
         decorators: Some(decorators_options),
-        rules: vec![(
-            foreign_code_context_condition(next_config).await?,
-            module_options_context.clone().cell(),
-        )],
+        rules: vec![
+            (
+                foreign_code_context_condition(next_config).await?,
+                module_options_context.clone().cell(),
+            ),
+            (
+                ContextCondition::Kind(FileSystemKind::Embedded),
+                module_options_context.clone().cell(),
+            ),
+        ],
         custom_rules,
         ..module_options_context
     }

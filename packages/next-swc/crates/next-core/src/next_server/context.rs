@@ -1,6 +1,9 @@
 use anyhow::Result;
 use turbo_binding::{
-    turbo::{tasks_env::ProcessEnvVc, tasks_fs::FileSystemPathVc},
+    turbo::{
+        tasks_env::ProcessEnvVc,
+        tasks_fs::{FileSystemKind, FileSystemPathVc},
+    },
     turbopack::{
         core::{
             compile_time_defines,
@@ -13,6 +16,7 @@ use turbo_binding::{
         ecmascript::EcmascriptInputTransform,
         node::execution_context::ExecutionContextVc,
         turbopack::{
+            condition::ContextCondition,
             module_options::{
                 ModuleOptionsContext, ModuleOptionsContextVc, PostCssTransformOptions,
                 WebpackLoadersOptions,
@@ -249,10 +253,16 @@ pub async fn get_server_module_options_context(
                 enable_webpack_loaders,
                 enable_typescript_transform: Some(tsconfig),
                 decorators: Some(decorators_options),
-                rules: vec![(
-                    foreign_code_context_condition,
-                    module_options_context.clone().cell(),
-                )],
+                rules: vec![
+                    (
+                        foreign_code_context_condition,
+                        module_options_context.clone().cell(),
+                    ),
+                    (
+                        ContextCondition::Kind(FileSystemKind::Embedded),
+                        module_options_context.clone().cell(),
+                    ),
+                ],
                 custom_rules,
                 ..module_options_context
             }
@@ -274,10 +284,16 @@ pub async fn get_server_module_options_context(
                 enable_webpack_loaders,
                 enable_typescript_transform: Some(tsconfig),
                 decorators: Some(decorators_options),
-                rules: vec![(
-                    foreign_code_context_condition,
-                    module_options_context.clone().cell(),
-                )],
+                rules: vec![
+                    (
+                        foreign_code_context_condition,
+                        module_options_context.clone().cell(),
+                    ),
+                    (
+                        ContextCondition::Kind(FileSystemKind::Embedded),
+                        module_options_context.clone().cell(),
+                    ),
+                ],
                 custom_rules,
                 ..module_options_context
             }
@@ -304,10 +320,16 @@ pub async fn get_server_module_options_context(
                 enable_webpack_loaders,
                 enable_typescript_transform: Some(tsconfig),
                 decorators: Some(decorators_options),
-                rules: vec![(
-                    foreign_code_context_condition,
-                    module_options_context.clone().cell(),
-                )],
+                rules: vec![
+                    (
+                        foreign_code_context_condition,
+                        module_options_context.clone().cell(),
+                    ),
+                    (
+                        ContextCondition::Kind(FileSystemKind::Embedded),
+                        module_options_context.clone().cell(),
+                    ),
+                ],
                 custom_rules,
                 ..module_options_context
             }
@@ -322,10 +344,16 @@ pub async fn get_server_module_options_context(
                 enable_webpack_loaders,
                 enable_typescript_transform: Some(tsconfig),
                 decorators: Some(decorators_options),
-                rules: vec![(
-                    foreign_code_context_condition,
-                    module_options_context.clone().cell(),
-                )],
+                rules: vec![
+                    (
+                        foreign_code_context_condition,
+                        module_options_context.clone().cell(),
+                    ),
+                    (
+                        ContextCondition::Kind(FileSystemKind::Embedded),
+                        module_options_context.clone().cell(),
+                    ),
+                ],
                 custom_rules,
                 ..module_options_context
             }
@@ -342,10 +370,16 @@ pub async fn get_server_module_options_context(
                 enable_webpack_loaders,
                 enable_typescript_transform: Some(tsconfig),
                 decorators: Some(decorators_options),
-                rules: vec![(
-                    foreign_code_context_condition,
-                    module_options_context.clone().cell(),
-                )],
+                rules: vec![
+                    (
+                        foreign_code_context_condition,
+                        module_options_context.clone().cell(),
+                    ),
+                    (
+                        ContextCondition::Kind(FileSystemKind::Embedded),
+                        module_options_context.clone().cell(),
+                    ),
+                ],
                 custom_rules,
                 ..module_options_context
             }
